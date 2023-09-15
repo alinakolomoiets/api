@@ -36,7 +36,14 @@ app.post('/widgets', (req, res) => {
         newWidget
     )
 })
-
+app.delete('/widgets/:id', (req, res) => {
+    if (typeof widgets[req.params.id - 1] === 'undefined') {
+        return res.status(404).send({ error: 'Widget not found' })
+    }
+   
+    widgets.splice(req.params.id-1,1)
+    res.status(204).send()
+})
 app.listen(8080, () => {
     console.log(`API up at: http://localhost:8080`)
 })
